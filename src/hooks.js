@@ -3,7 +3,10 @@ import { gql } from "@apollo/client";
 import { tibberClient } from "./tibber-api-client";
 import { netatmoClient } from "./netatmo-api-client";
 
-const homeId = process.env.REACT_APP_TIBBER_HOME_ID;
+const tibberHomeId = process.env.REACT_APP_TIBBER_HOME_ID;
+const netatmoDeviceId = encodeURIComponent(
+  process.env.REACT_APP_NETATMO_DEVICE_ID
+);
 
 export const useTibberRealtimeApiData = () => {
   const [data, setData] = useState({});
@@ -12,7 +15,7 @@ export const useTibberRealtimeApiData = () => {
       .subscribe({
         query: gql`
           subscription {
-            liveMeasurement(homeId: "${homeId}") {
+            liveMeasurement(homeId: "${tibberHomeId}") {
               powerProduction
               power
               currentL1
@@ -87,7 +90,7 @@ const useNetatmoApiData = () => {
     async function fetchStationData() {
       try {
         const netatmoDataRaw = await netatmoClient.get(
-          "https://api.netatmo.com/api/getstationsdata?device_id=70%3Aee%3A50%3A83%3Aac%3Aa0&get_favorites=false"
+          `https://api.netatmo.com/api/getstationsdata?device_id=${netatmoDeviceId}&get_favorites=false`
         );
         const netatmoData = {};
         try {
