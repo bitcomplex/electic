@@ -1,5 +1,7 @@
 import { useTibberRealtimeApiData } from "./hooks";
 
+const fuseSize = process.env.REACT_APP_MAIN_FUSE_SIZE;
+
 const outL = (v) => {
   const str = v.toString();
   if (str.indexOf(".") === -1) {
@@ -25,6 +27,9 @@ const RealtimeUsage = () => {
   if (m.power === undefined) {
     return;
   }
+  const overloadL1 = m.currentL1 > fuseSize;
+  const overloadL2 = m.currentL2 > fuseSize;
+  const overloadL3 = m.currentL3 > fuseSize;
   return (
     <div className="realtime">
       <div className="phase">
@@ -32,9 +37,15 @@ const RealtimeUsage = () => {
       </div>
       {outP(m.power, m.powerProduction)}
       <div className="phase">
-        <div>{outL(m.currentL1)} / 25 A</div>
-        <div>{outL(m.currentL2)} / 25 A</div>
-        <div>{outL(m.currentL3)} / 25 A</div>
+        <div className={overloadL1 ? "red" : ""}>
+          {outL(m.currentL1)} / {fuseSize} A
+        </div>
+        <div className={overloadL2 ? "red" : ""}>
+          {outL(m.currentL2)} / {fuseSize} A
+        </div>
+        <div className={overloadL3 ? "red" : ""}>
+          {outL(m.currentL3)} / {fuseSize} A
+        </div>
       </div>
     </div>
   );

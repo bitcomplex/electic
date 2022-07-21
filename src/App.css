@@ -221,3 +221,6 @@ h2 {
 .bottomRow .realtime .phase div {
   font-size: 1.5em;
 }
+.bottomRow .realtime .phase div.red {
+  color: red;
+}
