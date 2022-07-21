@@ -138,16 +138,21 @@ export const useNetatmoTemperatureData = () => {
   };
 };
 
+const kmh2ms = (kmh) => Math.round(kmh * (1000 / 3600) * 10) / 10;
+
 export const useNetatmoWindData = () => {
   const { Vindmätare } = useNetatmoApiData();
   const wind = {
     speed: null,
     direction: null,
+    gustSpeed: null,
+    maxSpeed: null,
   };
   if (Vindmätare) {
-    wind.speed =
-      Math.round(Vindmätare.WindStrength * (1000 / 3600) * 100) / 100;
+    wind.speed = kmh2ms(Vindmätare.WindStrength);
     wind.direction = Vindmätare.WindAngle;
+    wind.gustSpeed = kmh2ms(Vindmätare.GustStrength);
+    wind.maxSpeed = kmh2ms(Vindmätare.max_wind_str);
   }
   return wind;
 };

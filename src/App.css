@@ -124,27 +124,41 @@ h2 {
   font-size: 1.5em;
 }
 
-.dash .sub .compass p {
+.dash .compassContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: white !important;
+  height: 0;
+}
+
+.dash .compass {
+  position: relative;
+  top: 15px;
+}
+.dash .compass p {
   position: absolute;
   display: inline-block;
   margin: 0;
   padding: 0;
+  font-size: 1.2em;
+  font-weight: bold;
 }
-.dash .sub .compass p.n {
-  top: -15px;
+.dash .compass p.n {
+  top: -18px;
 }
-.dash .sub .compass p.s {
-  top: 75px;
+.dash .compass p.s {
+  top: 78px;
 }
-.dash .sub .compass p.w {
+.dash .compass p.w {
   top: 30px;
-  left: -15px;
+  left: -18px;
 }
-.dash .sub .compass p.e {
+.dash .compass p.e {
   top: 30px;
-  left: 85px;
+  left: 88px;
 }
-.dash .sub .windDirection {
+.dash .windDirection {
   width: 70px;
   height: 70px;
   background-repeat: no-repeat;
