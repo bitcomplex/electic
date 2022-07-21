@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-Date.prototype.getWeekNumber = function () {
+const getWeekNumber = (date) => {
   var d = new Date(
-    Date.UTC(this.getFullYear(), this.getMonth(), this.getDate())
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
   );
   var dayNum = d.getUTCDay() || 7;
   d.setUTCDate(d.getUTCDate() + 4 - dayNum);
@@ -29,7 +29,7 @@ function DateTime() {
           day: "numeric",
         })}
         <br />
-        Vecka {date.getWeekNumber()}
+        Vecka {getWeekNumber(date)}
       </span>
       <span className="clock">
         {date.toLocaleTimeString("sv-SE", {
